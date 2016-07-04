@@ -1,0 +1,38 @@
+---
+title: "Annual temperature trends by hemishpere"
+author: "collnell"
+date: "July 4, 2016"
+output: html_document
+---
+
+```{r,include=F}
+library(reshape2)
+library(dygraphs)
+
+
+setwd("/Users/colleennell/Documents/R/GISTEMP/")
+data<-read.csv("hemtemps.csv")
+tryd<-data[,c(1,3,4)]
+tryd[,3]<-(tryd[,3])/10
+tryd[,2]<-(tryd[,2])/10
+```
+
+```{r,thefig,echo=F}
+dygraph(tryd)%>%
+  dySeries("NHem",label="Northern Hemisphere")%>%
+  dySeries("SHem",label="Southern Hemisphere")%>%
+  dyLegend(width=400)%>%
+  dyRangeSelector(strokeColor="black",fillColor="grey")%>%
+  dyHighlight(highlightSeriesOpts=list(strokeWidth=3))%>%
+  dyLimit(0,color=)
+```
+  
+  These data show long term temperature patterns for the Northern and Southern Hemispheres. Dates on the x-axis are the time period pictured, and y-axis values indicate how much warmer (or colder if negative) temperatures were relative to normal. Baseline temperatures are based on averages from 1951-1908 and indicated by the red dashed line at 0.  Use time range selector below the x-axis to change the visible temperature range in the plot.
+  
+  
+These data show that since the 1980's temperatures in the Southern Hemisphere are increasing at a lower rate than temperatures int he Northern Hemisphere. This is likely due to the high proportion of ocean in the Southern Hemisphere relative to the Northern Hemisphere.       
+<br>  
+  **Data Source:**  
+  GISTEMP Team, 2016: GISS Surface Temperature Analysis (GISTEMP). NASA Goddard Institute for Space Studies. Dataset accessed 20YY-MM-DD at http://data.giss.nasa.gov/gistemp/.  
++ Hansen, J., R. Ruedy, M. Sato, and K. Lo, 2010: Global surface temperature change, Rev. Geophys., 48, RG4004, doi:10.1029/2010RG000345.  
+<br>
